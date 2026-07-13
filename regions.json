@@ -78,5 +78,13 @@
     "lon": 178.03,
     "offshore_dir": 270,
     "notes": "East-facing coast, offshore on W winds"
+  },
+  {
+    "id": "salina-cruz",
+    "name": "Salina Cruz, Mexico",
+    "lat": 16.17,
+    "lon": -95.2,
+    "offshore_dir": 0,
+    "notes": "South-facing Pacific coast, offshore on N winds (Tehuantepec wind zone)"
   }
 ]
