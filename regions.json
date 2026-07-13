@@ -85,6 +85,7 @@
     "lat": 16.17,
     "lon": -95.2,
     "offshore_dir": 0,
-    "notes": "South-facing Pacific coast, offshore on N winds (Tehuantepec wind zone)"
+    "wind_profile": { "ideal_min": 15, "ideal_max": 25, "too_strong": 40 },
+    "notes": "South-facing Pacific coast, needs moderate N Tehuantepec wind for grooming. Too calm = mushy, too strong = unmakeable"
   }
 ]

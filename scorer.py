@@ -98,22 +98,45 @@ def angle_diff(a, b):
     return min(d, 360 - d)
 
 
-def score_wind(speed_kmh, direction, offshore_dir):
-    """0-100. Light + offshore = 100. Strong + onshore = 0."""
+def score_wind(speed_kmh, direction, offshore_dir, wind_profile=None):
+    """0-100. Scores wind speed and direction.
+
+    Default: light + offshore = best.
+    With wind_profile: ideal_min-ideal_max offshore = best (e.g. Salina Cruz
+    needs moderate north wind for grooming; too calm = mushy).
+    """
     if speed_kmh is None or direction is None:
         return 50  # no data, neutral
 
-    # Speed component: lighter is better
-    if speed_kmh < 8:
-        speed_score = 100  # glassy
-    elif speed_kmh < 15:
-        speed_score = 85   # light
-    elif speed_kmh < 25:
-        speed_score = 55   # moderate
-    elif speed_kmh < MAX_WIND_KMH:
-        speed_score = 25   # strong
+    # Speed component
+    if wind_profile:
+        ideal_min = wind_profile["ideal_min"]
+        ideal_max = wind_profile["ideal_max"]
+        too_strong = wind_profile.get("too_strong", 45)
+
+        if ideal_min <= speed_kmh <= ideal_max:
+            speed_score = 100  # sweet spot
+        elif speed_kmh < ideal_min:
+            # Too calm — penalize proportionally
+            speed_score = int(40 + 60 * (speed_kmh / ideal_min))
+        elif speed_kmh <= too_strong:
+            # Above ideal but not blown out
+            ratio = (speed_kmh - ideal_max) / (too_strong - ideal_max)
+            speed_score = int(100 - ratio * 70)  # 100 down to 30
+        else:
+            speed_score = 5  # blown out
     else:
-        speed_score = 5    # howling
+        # Default: lighter is better
+        if speed_kmh < 8:
+            speed_score = 100  # glassy
+        elif speed_kmh < 15:
+            speed_score = 85   # light
+        elif speed_kmh < 25:
+            speed_score = 55   # moderate
+        elif speed_kmh < MAX_WIND_KMH:
+            speed_score = 25   # strong
+        else:
+            speed_score = 5    # howling
 
     # Direction component: offshore = 100, cross = 60, onshore = 20
     diff = angle_diff(direction, offshore_dir)
@@ -129,11 +152,11 @@ def score_wind(speed_kmh, direction, offshore_dir):
     return int(speed_score * 0.5 + dir_score * 0.5)
 
 
-def score_hour(height, period, wind_speed, wind_dir, offshore_dir):
+def score_hour(height, period, wind_speed, wind_dir, offshore_dir, wind_profile=None):
     """Combined score for a single hour."""
     s = score_swell_height(height)
     p = score_period(period)
-    w = score_wind(wind_speed, wind_dir, offshore_dir)
+    w = score_wind(wind_speed, wind_dir, offshore_dir, wind_profile)
     return s * W_SWELL + p * W_PERIOD + w * W_WIND
 
 
@@ -156,7 +179,7 @@ def analyze_region(region, marine, wind):
         w_speed = wind_hours["wind_speed_10m"][i] if i < len(wind_hours["wind_speed_10m"]) else None
         w_dir = wind_hours["wind_direction_10m"][i] if i < len(wind_hours["wind_direction_10m"]) else None
 
-        sc = score_hour(height, period, w_speed, w_dir, region["offshore_dir"])
+        sc = score_hour(height, period, w_speed, w_dir, region["offshore_dir"], region.get("wind_profile"))
 
         if date not in daily:
             daily[date] = {"scores": [], "heights": [], "periods": [], "winds": []}
