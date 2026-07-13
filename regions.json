@@ -1,0 +1,82 @@
+[
+  {
+    "id": "el-salvador",
+    "name": "El Salvador",
+    "lat": 13.49,
+    "lon": -89.39,
+    "offshore_dir": 0,
+    "notes": "South-facing Pacific coast, offshore on N winds"
+  },
+  {
+    "id": "nayarit",
+    "name": "Nayarit, Mexico",
+    "lat": 20.73,
+    "lon": -105.46,
+    "offshore_dir": 45,
+    "notes": "West-facing coast, offshore on NE winds"
+  },
+  {
+    "id": "costa-rica",
+    "name": "Costa Rica Central/South Pacific",
+    "lat": 9.17,
+    "lon": -83.95,
+    "offshore_dir": 45,
+    "notes": "SW-facing coast, offshore on NE winds"
+  },
+  {
+    "id": "nicaragua",
+    "name": "Nicaragua North Pacific",
+    "lat": 11.25,
+    "lon": -86.06,
+    "offshore_dir": 30,
+    "notes": "West-facing coast, offshore on NE winds"
+  },
+  {
+    "id": "ecuador",
+    "name": "Mainland Ecuador",
+    "lat": -1.8,
+    "lon": -80.73,
+    "offshore_dir": 90,
+    "notes": "West-facing coast, offshore on E winds"
+  },
+  {
+    "id": "baja-sur",
+    "name": "Baja California Sur",
+    "lat": 23.06,
+    "lon": -110.1,
+    "offshore_dir": 45,
+    "notes": "West/SW-facing coast, offshore on NE winds"
+  },
+  {
+    "id": "portugal-south",
+    "name": "Southern Portugal (Algarve/Ericeira)",
+    "lat": 38.96,
+    "lon": -9.42,
+    "offshore_dir": 90,
+    "notes": "West-facing Atlantic coast, offshore on E winds"
+  },
+  {
+    "id": "morocco",
+    "name": "Morocco (Taghazout area)",
+    "lat": 30.54,
+    "lon": -9.71,
+    "offshore_dir": 90,
+    "notes": "West-facing Atlantic coast, offshore on E winds"
+  },
+  {
+    "id": "sri-lanka",
+    "name": "Sri Lanka (South/East coast)",
+    "lat": 6.13,
+    "lon": 81.12,
+    "offshore_dir": 315,
+    "notes": "South-facing coast, offshore on NW winds"
+  },
+  {
+    "id": "new-zealand-north",
+    "name": "New Zealand North Island",
+    "lat": -38.68,
+    "lon": 178.03,
+    "offshore_dir": 270,
+    "notes": "East-facing coast, offshore on W winds"
+  }
+]
